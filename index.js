@@ -2,7 +2,7 @@ const { ApolloServer } = require('apollo-server');
 const { PubSub } = require('graphql-subscriptions');
 const mongoose = require('mongoose');
 
-const { MONGODB } = require('./config.js');
+const { MONGODB, CORS } = require('./config.js');
 
 const pubsub = new PubSub();
 
@@ -15,7 +15,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     cors: {
-        origin: ['http://localhost:3000', 'https://studio.apollographql.com'],
+        origin: CORS,
         credentials: true
     },
     context: ({ req }) => ({ req, pubsub }) // forward req body to allow resolver to access req body
